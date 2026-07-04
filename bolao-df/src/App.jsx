@@ -26,7 +26,14 @@ export default function App() {
             <Routes>
               <Route path="/"              element={<HomePage />} />
               <Route path="/partidas"      element={<PartidasPage      toast={toast} />} />
-              <Route path="/palpites"      element={<PalpitesPage      toast={toast} />} />
+              <Route
+                path="/palpites"
+                element={
+                  <RequireAdmin>
+                    <PalpitesPage toast={toast} />
+                  </RequireAdmin>
+                }
+              />
               <Route path="/ranking"       element={<RankingPage />} />
               <Route
                 path="/participantes"

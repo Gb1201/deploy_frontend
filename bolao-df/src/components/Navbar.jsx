@@ -7,7 +7,7 @@ import { useAuth } from "../auth/AuthContext";
 const LINKS = [
   { to: "/",             label: "Início",      Icon: Home      },
   { to: "/partidas",     label: "Partidas",    Icon: Calendar  },
-  { to: "/palpites",     label: "Palpites",    Icon: PenLine   },
+  { to: "/palpites",     label: "Palpites",    Icon: PenLine, adminOnly: true },
   { to: "/ranking",      label: "Ranking",     Icon: BarChart2 },
   { to: "/participantes",label: "Jogadores",   Icon: Users, adminOnly: true },
 ];
