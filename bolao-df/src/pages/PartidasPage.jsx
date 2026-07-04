@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { Plus, Play, X, CheckSquare, Calendar } from "lucide-react";
+import { Plus, Play, X, CheckSquare, Calendar, LogOut } from "lucide-react";
 import { partidasApi } from "../api";
 import PartidaCard from "../components/PartidaCard";
 import { Modal, ScoreStepper, Spinner, EmptyState } from "../components/UI";
+import { useAuth } from "../auth/AuthContext";
 
 // ── Modal: Nova Partida ───────────────────────────────────────
 function NovaPartidaModal({ onClose, onSave }) {
@@ -126,6 +127,7 @@ function ResultadoModal({ partida, onClose, onSave }) {
 const TABS = ["Todas", "Agendada", "Ativa", "Encerrada"];
 
 export default function PartidasPage({ toast }) {
+  const { isAdmin, logout } = useAuth();
   const [partidas, setPartidas] = useState([]);
   const [loading, setLoading]   = useState(true);
   const [tab, setTab]           = useState("Todas");
@@ -186,8 +188,9 @@ export default function PartidasPage({ toast }) {
     }
   };
 
-  // Build action buttons per partida
+  // Build action buttons per partida (somente admin)
   const getActions = (p) => {
+    if (!isAdmin) return null;
     if (p.status === "AGENDADA") return (
       <button className="btn btn-success btn-sm" onClick={() => handleAtivar(p.id)}>
         <Play size={13} /> Ativar bolão
@@ -210,9 +213,16 @@ export default function PartidasPage({ toast }) {
     <div className="container page">
       <div className="section-header">
         <h2 className="section-title bebas">Partidas</h2>
-        <button className="btn btn-primary btn-sm" onClick={() => setShowNova(true)}>
-          <Plus size={15} /> Nova partida
-        </button>
+        {isAdmin ? (
+          <div style={{ display: "flex", gap: 8 }}>
+            <button className="btn btn-primary btn-sm" onClick={() => setShowNova(true)}>
+              <Plus size={15} /> Nova partida
+            </button>
+            <button className="btn btn-ghost btn-sm" onClick={logout} title="Sair do modo admin">
+              <LogOut size={14} />
+            </button>
+          </div>
+        ) : null}
       </div>
 
       <div className="tab-pills">

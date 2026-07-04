@@ -1,7 +1,8 @@
 import { NavLink } from "react-router-dom";
 import {
-  Home, Calendar, PenLine, BarChart2, Users, ShieldHalf,
+  Home, Calendar, PenLine, BarChart2, Users, ShieldHalf, ShieldCheck, LogOut,
 } from "lucide-react";
+import { useAuth } from "../auth/AuthContext";
 
 const LINKS = [
   { to: "/",             label: "Início",      Icon: Home      },
@@ -12,6 +13,8 @@ const LINKS = [
 ];
 
 export default function Navbar() {
+  const { isAdmin, logout } = useAuth();
+
   return (
     <>
       {/* Desktop */}
@@ -38,6 +41,27 @@ export default function Navbar() {
                 {label}
               </NavLink>
             ))}
+
+            {isAdmin ? (
+              <button
+                onClick={logout}
+                className="navbar-link"
+                style={{ background: "none", border: "none", cursor: "pointer" }}
+                title="Sair do modo admin"
+              >
+                <LogOut size={15} strokeWidth={2} />
+                Sair
+              </button>
+            ) : (
+              <NavLink
+                to="/admin-login"
+                className={({ isActive }) => `navbar-link ${isActive ? "active" : ""}`}
+                title="Área do administrador"
+                style={{ opacity: 0.6 }}
+              >
+                <ShieldCheck size={15} strokeWidth={2} />
+              </NavLink>
+            )}
           </div>
         </div>
       </nav>
@@ -57,6 +81,21 @@ export default function Navbar() {
             {label}
           </NavLink>
         ))}
+
+        {isAdmin ? (
+          <button onClick={logout} className="bottom-nav-btn">
+            <LogOut size={20} strokeWidth={2} />
+            Sair
+          </button>
+        ) : (
+          <NavLink
+            to="/admin-login"
+            className={({ isActive }) => `bottom-nav-btn ${isActive ? "active" : ""}`}
+          >
+            <ShieldCheck size={20} strokeWidth={2} />
+            Admin
+          </NavLink>
+        )}
       </nav>
     </>
   );

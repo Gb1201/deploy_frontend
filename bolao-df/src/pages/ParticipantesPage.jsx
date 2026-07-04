@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Plus, BarChart2, Pencil, UserX, Users } from "lucide-react";
 import { participantesApi, palpitesApi } from "../api";
 import { Avatar, Modal, Spinner, PtsBadge, EmptyState } from "../components/UI";
+import { useAuth } from "../auth/AuthContext";
 
 // ── Modal Formulário ─────────────────────────────────────────
 function ParticipanteModal({ editando, onClose, onSave }) {
@@ -139,6 +140,7 @@ function PalpitesModal({ participante, onClose }) {
 
 // ── Page ──────────────────────────────────────────────────────
 export default function ParticipantesPage({ toast }) {
+  const { isAdmin } = useAuth();
   const [participantes, setParticipantes] = useState([]);
   const [loading,       setLoading]       = useState(true);
   const [formModal,     setFormModal]     = useState(null); // null | "novo" | participante
@@ -182,9 +184,11 @@ export default function ParticipantesPage({ toast }) {
     <div className="container page">
       <div className="section-header">
         <h2 className="section-title bebas">Jogadores</h2>
-        <button className="btn btn-primary btn-sm" onClick={() => setFormModal("novo")}>
-          <Plus size={15} /> Cadastrar
-        </button>
+        {isAdmin && (
+          <button className="btn btn-primary btn-sm" onClick={() => setFormModal("novo")}>
+            <Plus size={15} /> Cadastrar
+          </button>
+        )}
       </div>
 
       {loading ? (
@@ -220,20 +224,24 @@ export default function ParticipantesPage({ toast }) {
                 >
                   <BarChart2 size={15} />
                 </button>
-                <button
-                  className="btn btn-ghost btn-icon btn-sm"
-                  onClick={() => setFormModal(p)}
-                  title="Editar"
-                >
-                  <Pencil size={15} />
-                </button>
-                <button
-                  className="btn btn-danger btn-icon btn-sm"
-                  onClick={() => handleDesativar(p)}
-                  title="Desativar"
-                >
-                  <UserX size={15} />
-                </button>
+                {isAdmin && (
+                  <>
+                    <button
+                      className="btn btn-ghost btn-icon btn-sm"
+                      onClick={() => setFormModal(p)}
+                      title="Editar"
+                    >
+                      <Pencil size={15} />
+                    </button>
+                    <button
+                      className="btn btn-danger btn-icon btn-sm"
+                      onClick={() => handleDesativar(p)}
+                      title="Desativar"
+                    >
+                      <UserX size={15} />
+                    </button>
+                  </>
+                )}
               </div>
             </div>
           ))}
