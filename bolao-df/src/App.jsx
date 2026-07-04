@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import { ToastContainer } from "./components/UI";
 import { useToast } from "./hooks";
 import { AuthProvider } from "./auth/AuthContext";
+import RequireAdmin from "./auth/RequireAdmin";
 import "./styles/global.css";
 
 import HomePage          from "./pages/HomePage";
@@ -27,7 +28,14 @@ export default function App() {
               <Route path="/partidas"      element={<PartidasPage      toast={toast} />} />
               <Route path="/palpites"      element={<PalpitesPage      toast={toast} />} />
               <Route path="/ranking"       element={<RankingPage />} />
-              <Route path="/participantes" element={<ParticipantesPage toast={toast} />} />
+              <Route
+                path="/participantes"
+                element={
+                  <RequireAdmin>
+                    <ParticipantesPage toast={toast} />
+                  </RequireAdmin>
+                }
+              />
               <Route path="/admin-login"   element={<AdminLoginPage />} />
             </Routes>
           </main>

@@ -9,11 +9,12 @@ const LINKS = [
   { to: "/partidas",     label: "Partidas",    Icon: Calendar  },
   { to: "/palpites",     label: "Palpites",    Icon: PenLine   },
   { to: "/ranking",      label: "Ranking",     Icon: BarChart2 },
-  { to: "/participantes",label: "Jogadores",   Icon: Users     },
+  { to: "/participantes",label: "Jogadores",   Icon: Users, adminOnly: true },
 ];
 
 export default function Navbar() {
   const { isAdmin, logout } = useAuth();
+  const links = LINKS.filter((l) => !l.adminOnly || isAdmin);
 
   return (
     <>
@@ -28,7 +29,7 @@ export default function Navbar() {
           </NavLink>
 
           <div className="navbar-links">
-            {LINKS.map(({ to, label, Icon }) => (
+            {links.map(({ to, label, Icon }) => (
               <NavLink
                 key={to}
                 to={to}
@@ -68,7 +69,7 @@ export default function Navbar() {
 
       {/* Mobile Bottom Nav */}
       <nav className="bottom-nav">
-        {LINKS.map(({ to, label, Icon }) => (
+        {links.map(({ to, label, Icon }) => (
           <NavLink
             key={to}
             to={to}
