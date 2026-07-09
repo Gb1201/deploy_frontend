@@ -35,25 +35,29 @@ export default function HomePage() {
     <div>
       {/* Hero */}
       <div className="hero">
-        <div className="container">
-          <h1 className="hero-title">
-            BOLÃO DO <span>DF NEWS</span>
-          </h1>
-          <p className="hero-sub">Sistema de Bolão do DF News</p>
-          <div className="hero-stats">
-            <div>
-              <div className="hero-stat-val">{partidas.length}</div>
-              <div className="hero-stat-label">Partidas</div>
-            </div>
-            <div>
-              <div className="hero-stat-val">{encerradas}</div>
-              <div className="hero-stat-label">Encerradas</div>
-            </div>
-            <div>
-              <div className="hero-stat-val">{ranking.length}</div>
-              <div className="hero-stat-label">Jogadores</div>
+        <div className="container hero-inner">
+          <div className="hero-copy">
+            <span className="hero-kicker">DF FLA NEWS · TEMPORADA 2026</span>
+            <h1 className="hero-title">
+              BOLÃO DO <span>MENGÃO</span>
+            </h1>
+            <p className="hero-sub">Dê seu palpite, acompanhe os jogos do Flamengo e dispute o topo do ranking.</p>
+            <div className="hero-stats">
+              <div>
+                <div className="hero-stat-val">{partidas.length}</div>
+                <div className="hero-stat-label">Partidas</div>
+              </div>
+              <div>
+                <div className="hero-stat-val">{encerradas}</div>
+                <div className="hero-stat-label">Encerradas</div>
+              </div>
+              <div>
+                <div className="hero-stat-val">{ranking.length}</div>
+                <div className="hero-stat-label">Jogadores</div>
+              </div>
             </div>
           </div>
+          <img src="/logo.png" alt="DF FLA News" className="hero-badge" />
         </div>
       </div>
 

@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import { ToastContainer } from "./components/UI";
 import { useToast } from "./hooks";
 import { AuthProvider } from "./auth/AuthContext";
@@ -46,6 +47,8 @@ export default function App() {
               <Route path="/admin-login"   element={<AdminLoginPage />} />
             </Routes>
           </main>
+
+          <Footer />
         </div>
 
         <ToastContainer toasts={toasts} />

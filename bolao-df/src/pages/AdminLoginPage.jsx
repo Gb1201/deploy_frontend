@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Lock, Eye, EyeOff, ShieldCheck } from "lucide-react";
+import { Lock, Eye, EyeOff } from "lucide-react";
 import { useAuth } from "../auth/AuthContext";
 
 export default function AdminLoginPage() {
@@ -33,16 +33,16 @@ export default function AdminLoginPage() {
         className="card"
         style={{ display: "flex", flexDirection: "column", gap: 20, padding: 28 }}
       >
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
-          <div
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
+          <img
+            src="/logo.png"
+            alt="DF FLA News"
             style={{
-              width: 48, height: 48, borderRadius: "var(--radius)",
-              background: "var(--red-glow)", display: "flex",
-              alignItems: "center", justifyContent: "center",
+              width: 56, height: 56, borderRadius: "50%", objectFit: "cover",
+              border: "2px solid rgba(204,0,0,0.45)",
+              boxShadow: "0 0 0 5px rgba(204,0,0,0.08)",
             }}
-          >
-            <ShieldCheck size={24} color="var(--red-light)" />
-          </div>
+          />
           <h2 className="section-title bebas" style={{ margin: 0 }}>Área do Administrador</h2>
           <p style={{ color: "var(--text-2)", fontSize: 13, textAlign: "center", margin: 0 }}>
             Acesso restrito. Informe a senha para gerenciar partidas e jogadores.

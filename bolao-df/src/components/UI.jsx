@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { X, CheckCircle2, XCircle } from "lucide-react";
 import { initials, STATUS_META } from "../utils";
 
@@ -107,4 +108,26 @@ export function EmptyState({ icon: Icon, message }) {
       <p>{message}</p>
     </div>
   );
+}
+
+// ── CountUp ───────────────────────────────────────────────────
+// Anima um número subindo de 0 até `value` quando ele aparece/muda.
+export function CountUp({ value, duration = 700 }) {
+  const [display, setDisplay] = useState(0);
+
+  useEffect(() => {
+    const target = Number(value) || 0;
+    let raf;
+    const start = performance.now();
+    const animate = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+      setDisplay(Math.round(target * eased));
+      if (progress < 1) raf = requestAnimationFrame(animate);
+    };
+    raf = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(raf);
+  }, [value, duration]);
+
+  return display;
 }

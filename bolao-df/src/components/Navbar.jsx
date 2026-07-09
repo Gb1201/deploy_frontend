@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import {
-  Home, Calendar, PenLine, BarChart2, Users, ShieldHalf, ShieldCheck, LogOut,
+  Home, Calendar, PenLine, BarChart2, Users, ShieldCheck, LogOut,
 } from "lucide-react";
 import { useAuth } from "../auth/AuthContext";
 
@@ -22,10 +22,10 @@ export default function Navbar() {
       <nav className="navbar">
         <div className="navbar-inner">
           <NavLink to="/" className="navbar-logo">
-            <div className="navbar-logo-icon">
-              <ShieldHalf size={18} color="#fff" />
-            </div>
-            DF NEWS
+            <img src="/logo.png" alt="DF FLA News" className="navbar-logo-icon" />
+            <span className="navbar-logo-text">
+              DF FLA <span>NEWS</span>
+            </span>
           </NavLink>
 
           <div className="navbar-links">
